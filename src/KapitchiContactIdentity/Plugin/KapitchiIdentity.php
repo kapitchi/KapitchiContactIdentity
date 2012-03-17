@@ -26,7 +26,7 @@ class KapitchiIdentity  implements \Zend\Mvc\LocatorAware {
     }
     
     public function getIdentity($e) {
-        $identity = $e->getParam('identity');
+        $identity = $e->getParam('model');
         $contactIdentityService = $this->getLocator()->get('KapitchiContactIdentity\Service\ContactIdentity');
         $model = $contactIdentityService->get(array(
             'identityId' => $identity->getId()
@@ -46,8 +46,8 @@ class KapitchiIdentity  implements \Zend\Mvc\LocatorAware {
         if(!empty($data['ext'][$this->extName])) {
             $service = $this->getLocator()->get('KapitchiContact\Service\Contact');
             $ret = $service->persist($data['ext']['KapitchiContact_Contact']);
-            $identity = $e->getParam('identity');
-            $identity->ext('KapitchiContact_Contact', $ret['contact']);
+            $identity = $e->getParam('model');
+            $identity->ext('KapitchiContact_Contact', $ret['model']);
             //return $ret;
         }
     }
