@@ -35,7 +35,7 @@ class KapitchiIdentity  implements \Zend\Mvc\LocatorAware {
         if($model) {
             $contactService = $this->getLocator()->get('KapitchiContact\Service\Contact');
             $contact = $contactService->get(array(
-                'id' => $model->getIdentityId()
+                'priKey' => $model->getContactId()
             ));
             $identity->ext($this->extName, $contact);
         }
