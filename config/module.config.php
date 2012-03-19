@@ -5,7 +5,8 @@ return array(
             //services
             'KapitchiContactIdentity\Service\ContactIdentity' => array(
                 'parameters' => array(
-                    'mapper' => 'KapitchiContactIdentity\Model\Mapper\ContactIdentityZendDb'
+                    'mapper' => 'KapitchiContactIdentity\Model\Mapper\ContactIdentityZendDb',
+                    'model' => 'KapitchiContactIdentity\Model\ContactIdentity'
                 )
             ),
             

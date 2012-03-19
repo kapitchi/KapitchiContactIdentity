@@ -2,10 +2,10 @@
 
 namespace KapitchiContactIdentity\Service;
 
-use KapitchiBase\Service\ServiceAbstract,
+use KapitchiBase\Service\ModelServiceAbstract,
     KapitchiContactIdentity\Model\ContactIdentity as ContactIdentityModel;
 
-class ContactIdentity extends ServiceAbstract {
+class ContactIdentity extends ModelServiceAbstract {
     protected $mapper;
     
     public function get(array $filter) {

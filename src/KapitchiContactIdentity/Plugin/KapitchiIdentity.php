@@ -8,7 +8,10 @@ use Zend\Module\Manager,
     Zend\Di\Locator,
     KapitchiIdentity\Form\Identity as IdentityForm;;
 
-class KapitchiIdentity  implements \Zend\Mvc\LocatorAware {
+/**
+ * TODO get rid of hard dependencies ie. $this->getLocator()->get() calls!
+ */
+class KapitchiIdentity implements \Zend\Mvc\LocatorAware {
     protected $extName = 'KapitchiContact_Contact';
     
     public function bootstrap(Manager $moduleManager, Application $app) {
@@ -44,11 +47,19 @@ class KapitchiIdentity  implements \Zend\Mvc\LocatorAware {
     public function createPost($e) {
         $data = $e->getParam('data');
         if(!empty($data['ext'][$this->extName])) {
+            $identity = $e->getParam('model');
+            
             $service = $this->getLocator()->get('KapitchiContact\Service\Contact');
             $ret = $service->persist($data['ext']['KapitchiContact_Contact']);
-            $identity = $e->getParam('model');
-            $identity->ext('KapitchiContact_Contact', $ret['model']);
-            //return $ret;
+            $contact = $ret['model'];
+            
+            $contactIdentityService = $this->getLocator()->get('KapitchiContactIdentity\Service\ContactIdentity');
+            $contactIdentityService->persist(array(
+                'identityId' => $identity->getId(),
+                'contactId' => $contact->getId(),
+            ));
+            
+            $identity->ext('KapitchiContact_Contact', $contact);
         }
     }
     
