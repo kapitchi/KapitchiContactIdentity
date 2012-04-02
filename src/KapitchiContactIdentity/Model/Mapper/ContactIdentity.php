@@ -2,7 +2,7 @@
 
 namespace KapitchiContactIdentity\Model\Mapper;
 
-use     KapitchiBase\Mapper\ModelMapper;
+use ZfcBase\Mapper\ModelMapper;
 
 interface ContactIdentity extends ModelMapper {
     public function findByContactId($id);

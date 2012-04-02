@@ -10,9 +10,6 @@ class Module extends ModuleAbstract
 {
     public function bootstrap(Manager $moduleManager, Application $app) {
         $locator      = $app->getLocator();
-        
-        $plugin     = $locator->get('KapitchiContactIdentity\Plugin\KapitchiIdentity');
-        $plugin->bootstrap($moduleManager, $app);
     }
     
     public function getDir() {

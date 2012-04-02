@@ -2,12 +2,12 @@
 
 namespace KapitchiContactIdentity\Model\Mapper;
 
-use     KapitchiBase\Mapper\DbAdapterMapper,
-        KapitchiBase\Model\ModelAbstract,
+use     ZfcBase\Mapper\DbAdapterMapper,
+        ZfcBase\Model\ModelAbstract,
         KapitchiContactIdentity\Model\Mapper\ContactIdentity as Mapper,
         KapitchiContactIdentity\Model\ContactIdentity as Model;
 
-class ContactIdentityZendDb extends DbAdapterMapper implements Mapper {
+class ContactIdentityDbAdapter extends DbAdapterMapper implements Mapper {
     protected $tableName = 'contact_identity';
     
     public function persist(ModelAbstract $model) {

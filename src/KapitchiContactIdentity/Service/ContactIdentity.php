@@ -2,45 +2,22 @@
 
 namespace KapitchiContactIdentity\Service;
 
-use KapitchiBase\Service\ModelServiceAbstract,
+use ZfcBase\Service\ModelServiceAbstract,
     KapitchiContactIdentity\Model\ContactIdentity as ContactIdentityModel;
 
 class ContactIdentity extends ModelServiceAbstract {
-    protected $mapper;
-    
-    public function get(array $filter) {
-        //TODO
-        $identityId = $filter['identityId'];
+    protected function attachDefaultListeners() {
+        parent::attachDefaultListeners();
         
-        $model = $this->getMapper()->findByIdentityId($identityId);
-        return $model;
-    }
-    
-    public function persist(array $params) {
-        foreach(array(
-            'identityId',
-            'contactId',
-            ) as $param) {
-            if(empty($params[$param])) {
-                throw new \InvalidArgumentException("Required param '$param'");
+        $instance = $this;
+        $events = $this->events();
+        $mapper = $this->getMapper();
+        
+        //get
+        $events->attach('get.load', function($e) use ($mapper) {
+            if($e->getParam('identityId')) {
+                return $mapper->findByIdentityId($e->getParam('identityId'));
             }
-        }
-        
-        $model = new ContactIdentityModel();
-        $model->setContactId($params['contactId']);
-        $model->setIdentityId($params['identityId']);
-        
-        $this->getMapper()->persist($model);
-        
-        return $model;
+        });
     }
-    
-    public function getMapper() {
-        return $this->mapper;
-    }
-
-    public function setMapper($mapper) {
-        $this->mapper = $mapper;
-    }
-
 }
