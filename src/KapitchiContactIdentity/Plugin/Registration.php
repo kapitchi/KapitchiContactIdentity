@@ -38,7 +38,7 @@ class Registration extends ModelPlugin {
             
             $contactIdentityService = $this->getLocator()->get('KapitchiContactIdentity\Service\ContactIdentity');
             $contactIdentityService->persist(array(
-                'identityId' => $model->getId(),
+                'identityId' => $model->ext('Identity')->getId(),
                 'contactId' => $contact->getId(),
             ));
             
