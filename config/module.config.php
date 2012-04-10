@@ -1,14 +1,12 @@
 <?php
 return array(
     'KapitchiContactIdentity' => array(
-        'options' => array(
-            'plugins' => array(
-                'IdentityContact' => array(
-                    'class' => 'KapitchiContactIdentity\Plugin\IdentityContact',
-                ),
-                'Registration' => array(
-                    'class' => 'KapitchiContactIdentity\Plugin\Registration',
-                )
+        'plugins' => array(
+            'IdentityContact' => array(
+                'diclass' => 'KapitchiContactIdentity\Plugin\IdentityContact',
+            ),
+            'Registration' => array(
+                'diclass' => 'KapitchiContactIdentity\Plugin\Registration',
             )
         )
     ),

@@ -36,10 +36,19 @@ class IdentityContact extends ModelPlugin {
             $contact = $ret['model'];
             
             $contactIdentityService = $this->getLocator()->get('KapitchiContactIdentity\Service\ContactIdentity');
-            $contactIdentityService->persist(array(
-                'identityId' => $model->getId(),
-                'contactId' => $contact->getId(),
-            ));
+            try {
+                $contactIdentity = $contactIdentityService->get(array(
+                    'identityId' => $model->getId()
+                ));
+                if($contactIdentity->getContactId() != $contact->getId()) {
+                    throw new Exception("Contact/identity mishmash!");
+                }
+            } catch(\ZfcBase\Service\Exception\ModelNotFoundException $e) {
+                $contactIdentityService->persist(array(
+                    'identityId' => $model->getId(),
+                    'contactId' => $contact->getId(),
+                ));
+            }
             
             return $contact;
         }
