@@ -22,7 +22,7 @@ class ContactIdentityDbAdapter extends DbAdapterMapper implements Mapper {
     }
     
     protected function insert(ModelAbstract $model) {
-        $table = $this->getContactIdentityTable();
+        $table = $this->getTableGateway($this->tableName, true);
         
         $data = $model->toArray();
         
@@ -42,7 +42,7 @@ class ContactIdentityDbAdapter extends DbAdapterMapper implements Mapper {
     }
     
     public function findByPriKey($priKey) {
-        $table = $this->getContactIdentityTable();
+        $table = $this->getTableGateway($this->tableName);
         $result = $table->select(array('id' => $priKey));
         $data = $result->current();
         if(!$data) {
@@ -68,17 +68,15 @@ class ContactIdentityDbAdapter extends DbAdapterMapper implements Mapper {
 //        return $model;
 //    }
     
-    public function remove(ModelAbstract $contact) {
-        var_dump($contact);
-        exit;
-    }
-    
-    protected function getContactIdentityTable() {
-        return $this->getTableGateway($this->tableName);
+    public function remove(ModelAbstract $model) {
+        $table = $this->getTableGateway($this->tableName, true);
+        $table->delete(array(
+            'id' => $model->getId()
+        ));
     }
     
     public function findByContactId($id) {
-        $table = $this->getContactIdentityTable();
+        $table = $this->getTableGateway($this->tableName);
         $result = $table->select(array('contactId' => $id));
         $data = $result->current();
         if(!$data) {
@@ -89,7 +87,7 @@ class ContactIdentityDbAdapter extends DbAdapterMapper implements Mapper {
     }
     
     public function findByIdentityId($identityId) {
-        $table = $this->getContactIdentityTable();
+        $table = $this->getTableGateway($this->tableName);
         $result = $table->select(array('identityId' => $identityId));
         $data = $result->current();
         if(!$data) {

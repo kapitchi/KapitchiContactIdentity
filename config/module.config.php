@@ -1,13 +1,19 @@
 <?php
 return array(
     'KapitchiContactIdentity' => array(
-        'plugins' => array(
-            'IdentityContact' => array(
-                'diclass' => 'KapitchiContactIdentity\Plugin\IdentityContact',
+        'plugin_broker' => array(
+            'bootstrap_plugins' => array(
+                'IdentityContact' => true,
+                'Registration' => true,
             ),
-            'Registration' => array(
-                'diclass' => 'KapitchiContactIdentity\Plugin\Registration',
-            )
+            'specs' => array(
+                'IdentityContact' => array(
+                    
+                ),
+                'Registration' => array(
+                    
+                ),
+            ),
         )
     ),
     'di' => array(

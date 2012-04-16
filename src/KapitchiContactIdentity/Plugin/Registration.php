@@ -3,7 +3,7 @@
 namespace KapitchiContactIdentity\Plugin;
 
 use ZfcBase\Model\ModelAbstract,
-    KapitchiBase\Plugin\ModelPlugin;
+    KapitchiBase\Module\Plugin\ModelPlugin;
 
 class Registration extends ModelPlugin {
     protected $modelServiceClass = 'KapitchiIdentity\Service\Registration';

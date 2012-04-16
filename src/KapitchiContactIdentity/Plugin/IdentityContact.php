@@ -3,7 +3,7 @@
 namespace KapitchiContactIdentity\Plugin;
 
 use ZfcBase\Model\ModelAbstract,
-    KapitchiBase\Plugin\ModelPlugin;
+    KapitchiBase\Module\Plugin\ModelPlugin;
 
 class IdentityContact extends ModelPlugin {
     protected $modelServiceClass = 'KapitchiIdentity\Service\Identity';
@@ -55,8 +55,15 @@ class IdentityContact extends ModelPlugin {
     }
     
     public function removeModel(ModelAbstract $model) {
-        var_dump($model);
-        exit;
+        $contactIdentityService = $this->getLocator()->get('KapitchiContactIdentity\Service\ContactIdentity');
+        $contactIdentity = $contactIdentityService->get(array(
+            'identityId' => $model->getId()
+        ));
+        
+        $contactIdentityService->remove($contactIdentity->getId());
+        
+        $service = $this->getLocator()->get('KapitchiContact\Service\Contact');
+        $service->remove($contactIdentity->getContactId());
     }
     
 }
