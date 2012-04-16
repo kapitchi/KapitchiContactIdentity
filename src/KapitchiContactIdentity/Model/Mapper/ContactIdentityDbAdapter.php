@@ -4,11 +4,12 @@ namespace KapitchiContactIdentity\Model\Mapper;
 
 use     ZfcBase\Mapper\DbAdapterMapper,
         ZfcBase\Model\ModelAbstract,
-        KapitchiContactIdentity\Model\Mapper\ContactIdentity as Mapper,
+        KapitchiContactIdentity\Model\Mapper\ContactIdentityInterface,
         KapitchiContactIdentity\Model\ContactIdentity as Model;
 
-class ContactIdentityDbAdapter extends DbAdapterMapper implements Mapper {
+class ContactIdentityDbAdapter extends DbAdapterMapper implements ContactIdentityInterface {
     protected $tableName = 'contact_identity';
+    protected $modelPrototype;
     
     public function persist(ModelAbstract $model) {
         if($model->getId()) {
@@ -96,4 +97,13 @@ class ContactIdentityDbAdapter extends DbAdapterMapper implements Mapper {
         $model = Model::fromArray($data->getArrayCopy());
         return $model;
     }
+    
+    public function getModelPrototype() {
+        return $this->modelPrototype;
+    }
+
+    public function setModelPrototype(ModelAbstract $modelPrototype) {
+        $this->modelPrototype = $modelPrototype;
+    }
+
 }
